@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>wavemark — wave-interference avatars</title>
+  <meta name="description" content="wavemark turns any string into a deterministic avatar: 3–5 wave sources, one interference pattern, zero dependencies.">
+  <link rel="icon" id="favicon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="./">
+      <canvas id="brand-mark" class="avatar"></canvas>
+      <span>wavemark</span>
+    </a>
+    <nav class="top-nav" aria-label="Links">
+      <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
+      <a href="https://github.com/whoisanku/wavemark" rel="noopener">github</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Avatars made of waves.</h1>
+        <p class="tagline">Any string → 3–5 wave sources → interference pattern. Same name, same avatar, forever.</p>
+
+        <div class="controls" role="group" aria-label="Playground controls">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" value="ankit" placeholder="username, email, id…" spellcheck="false" autocapitalize="off">
+          </div>
+
+          <div class="field-row">
+            <fieldset class="field seg-field">
+              <legend>Style</legend>
+              <div class="seg" role="radiogroup" aria-label="Style">
+                <label><input type="radio" name="style" value="nodal" checked><span>nodal</span></label>
+                <label><input type="radio" name="style" value="pen"><span>pen</span></label>
+                <label><input type="radio" name="style" value="halo"><span>halo</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field seg-field">
+              <legend>Motion</legend>
+              <div class="seg" role="radiogroup" aria-label="Motion">
+                <label><input type="radio" name="motion" value="static" checked><span>static</span></label>
+                <label><input type="radio" name="motion" value="animated"><span>animated</span></label>
+              </div>
+            </fieldset>
+          </div>
+          <p id="motion-note" class="note" hidden>Animation is off because your OS asks for reduced motion.</p>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <canvas id="hero" class="avatar"></canvas>
+      </div>
+    </section>
+
+    <section class="block">
+      <header class="block-head">
+        <h2>Twelve strangers</h2>
+        <p>Handles, emails, ids — each hashed into its own wave field. 60 px.</p>
+      </header>
+      <ul id="grid" class="grid" aria-label="Sample avatars"></ul>
+    </section>
+
+    <section class="block">
+      <header class="block-head">
+        <h2>In a thread</h2>
+        <p>Tiny sizes are where identicons earn their keep. 24 px.</p>
+      </header>
+      <ol id="thread" class="thread" aria-label="Mock comment thread"></ol>
+    </section>
+
+    <section class="block">
+      <header class="block-head">
+        <h2>Usage</h2>
+        <p>One import. No build step required.</p>
+      </header>
+      <pre class="code"><code>npm install wavemark
+
+import { wavemark } from 'wavemark';
+
+wavemark('ankit', canvas, { style: 'nodal' });          // draw into a canvas
+wavemark('ankit', canvas, { breathe: true });           // slow in-place motion
+img.src = wavemark.toDataURL('ankit', 64);              // PNG data URL
+
+// straight from a CDN, no bundler:
+import { wavemark } from 'https://cdn.jsdelivr.net/npm/wavemark/+esm';</code></pre>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span>wavemark · MIT</span>
+    <nav aria-label="Footer links">
+      <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
+      <a href="https://github.com/whoisanku/wavemark/blob/main/SPEC.md" rel="noopener">SPEC.md</a>
+    </nav>
+  </footer>
+</body>
+</html>

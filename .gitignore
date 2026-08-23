@@ -1,0 +1,5 @@
+node_modules/
+dist/
+demo/app.js
+*.tgz
+.DS_Store

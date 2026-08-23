@@ -1,0 +1,65 @@
+{
+  "engine": "node 24.13.0 / v8 13.6.233.17-node.37",
+  "algorithm": "sha256",
+  "note": "sha256 of the RGBA bytes handed to putImageData. Identical on the same JS engine; other engines may differ in the last float bits.",
+  "cases": {
+    "ankit@128": {
+      "name": "ankit",
+      "size": 128,
+      "t": 0,
+      "hashes": {
+        "nodal": "f7369d22d3cf91dd679844002babad9725f214a5aa2fd3cddf3a91c4f5a05fea",
+        "pen": "2aeea48cc9f0d2547a608ae425e13b013efc7fcf039befe4a4316f04a4c71b73",
+        "halo": "c66ef6040ce6f3e30f894ec0cd4ec1299deeacc19b47d6bd59c248f204f9e3e7"
+      }
+    },
+    "ada@128": {
+      "name": "ada",
+      "size": 128,
+      "t": 0,
+      "hashes": {
+        "nodal": "fd5670c6e568e1cc4f0ef18372793041aa5ee08cf3b1f3a0c11d4851f90f7944",
+        "pen": "3cdc40157e5e44130cd51715b158b9f2d768ffdaf42dd65f5af4d3822df94c9f",
+        "halo": "9e571be816af4d73962cc7b612b365b0c9859b947664c409b67791dfd9103d2f"
+      }
+    },
+    "grace@128": {
+      "name": "grace",
+      "size": 128,
+      "t": 0,
+      "hashes": {
+        "nodal": "a09f3e16e7315af044e13c8137813d7c9eb3f6130b1d0ca3cef93bf075746c8f",
+        "pen": "9e87f14220463203f4febb2187eadba7f8ad8ba7f790078f8c2721b37f95f33d",
+        "halo": "38fcedb4915568200956538266fa032b4e4ea017062f232d1faaadd4b8dbfbf1"
+      }
+    },
+    "turing@128": {
+      "name": "turing",
+      "size": 128,
+      "t": 0,
+      "hashes": {
+        "nodal": "ebf19be06f589e800de678ccca07d677c21ef209e23da027d39ddfee2a1ce849",
+        "pen": "960f55142872ba77bb423c491785b38aa4fc44a17c282df96250f575100f0835",
+        "halo": "7ff666a6f431b9a4f93c856ada0cf725f0bb8d2ddabf6345eb9125c0c456f51c"
+      }
+    },
+    "ankit@256": {
+      "name": "ankit",
+      "size": 256,
+      "t": 0,
+      "hashes": {
+        "pen": "41bd28931f89727be753b1c9dec8fb514d9904cf86b73eaa3d3fd88b3d1472b8"
+      }
+    },
+    "ankit@64@t=1.5": {
+      "name": "ankit",
+      "size": 64,
+      "t": 1.5,
+      "hashes": {
+        "nodal": "50c5ab653fe01f517e5449cc4b3367e13ef5521dc2edd30eecde3c1e489d4e6f",
+        "pen": "af867d923631e7cf57484ae160f4e9c73c20961ef736e1722e381dbf76195fb8",
+        "halo": "d4f732c826b6e3212ae3c93fef7234ca6e103e79de738db38f16595b30314e12"
+      }
+    }
+  }
+}
