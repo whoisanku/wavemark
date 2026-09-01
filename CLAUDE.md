@@ -39,6 +39,7 @@ Node 24 (tests and scripts use Node's native TypeScript type stripping; the pixe
 - `dist/` — build output, gitignored, what gets published: `wavemark.js` (+ map) and `types/{index,types}.d.ts`.
 - `.github/workflows/` — `ci.yml` (typecheck, test, build, pack dry-run on Node 24), `pages.yml` (builds and deploys `demo/` to GitHub Pages).
 - `tsconfig.json` (typecheck everything, no emit), `tsconfig.build.json` (declaration emit for `src/` only).
+- `.claude/launch.json` — launch config for Claude Code's browser preview: `npm run dev` on port 5173 (the playground is at `/demo/`).
 
 ## Conventions
 

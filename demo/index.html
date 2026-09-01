@@ -4,103 +4,159 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#08080c" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f7f7fa" media="(prefers-color-scheme: light)">
   <title>wavemark — wave-interference avatars</title>
   <meta name="description" content="wavemark turns any string into a deterministic avatar: 3–5 wave sources, one interference pattern, zero dependencies.">
   <link rel="icon" id="favicon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&family=JetBrains+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="./style.css">
+  <script>document.documentElement.classList.add('js')</script>
   <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <header class="top">
-    <a class="brand" href="./">
-      <canvas id="brand-mark" class="avatar"></canvas>
-      <span>wavemark</span>
-    </a>
-    <nav class="top-nav" aria-label="Links">
-      <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
-      <a href="https://github.com/whoisanku/wavemark" rel="noopener">github</a>
-    </nav>
+  <div class="bg" aria-hidden="true">
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+  </div>
+
+  <header class="top" id="top">
+    <div class="top-inner">
+      <a class="brand" href="./"><span id="brand-mark" class="brand-mark"></span><span>wavemark</span></a>
+      <nav class="top-nav" aria-label="Links">
+        <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
+        <a href="https://github.com/whoisanku/wavemark" rel="noopener">GitHub</a>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="hero-copy">
-        <h1>Avatars made of waves.</h1>
-        <p class="tagline">Any string → 3–5 wave sources → interference pattern. Same name, same avatar, forever.</p>
+        <p class="eyebrow reveal" style="--i:0"><span class="dot"></span>v0.1.0 · 2.4 KB min+gzip · zero dependencies</p>
+        <h1 class="reveal" style="--i:1">Avatars made<br>of <em>waves</em>.</h1>
+        <p class="tagline reveal" style="--i:2">Any string is hashed into 3–5 wave sources. The avatar is their interference pattern. Same name, same avatar, forever.</p>
+      </div>
 
-        <div class="controls" role="group" aria-label="Playground controls">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" type="text" value="ankit" placeholder="username, email, id…" spellcheck="false" autocapitalize="off">
-          </div>
-
-          <div class="field-row">
-            <fieldset class="field seg-field">
-              <legend>Style</legend>
-              <div class="seg" role="radiogroup" aria-label="Style">
-                <label><input type="radio" name="style" value="nodal" checked><span>nodal</span></label>
-                <label><input type="radio" name="style" value="pen"><span>pen</span></label>
-                <label><input type="radio" name="style" value="halo"><span>halo</span></label>
-              </div>
-            </fieldset>
-
-            <fieldset class="field seg-field">
-              <legend>Motion</legend>
-              <div class="seg" role="radiogroup" aria-label="Motion">
-                <label><input type="radio" name="motion" value="static" checked><span>static</span></label>
-                <label><input type="radio" name="motion" value="animated"><span>animated</span></label>
-              </div>
-            </fieldset>
-          </div>
-          <p id="motion-note" class="note" hidden>Animation is off because your OS asks for reduced motion.</p>
+      <div class="hero-art reveal" style="--i:2">
+        <div class="stage" id="stage">
+          <div class="stage-glow"></div>
+          <div class="stage-ring"></div>
+          <div class="avatar-stack" id="avatar-stack"></div>
+        </div>
+        <div class="live-code">
+          <code id="live-call" aria-live="polite"></code>
+          <button type="button" class="copy" id="copy-call" aria-label="Copy this call">
+            <svg class="ic-copy" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 5.5v-1a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1"/></svg>
+            <svg class="ic-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>
+          </button>
         </div>
       </div>
 
-      <div class="hero-art">
-        <canvas id="hero" class="avatar"></canvas>
+      <div class="hero-controls reveal" style="--i:3" role="group" aria-label="Playground controls">
+        <div class="field">
+          <label for="name">Name</label>
+          <div class="input-wrap">
+            <input id="name" type="text" value="ankit" placeholder="username, email, id…" spellcheck="false" autocapitalize="off" autocomplete="off">
+            <button type="button" class="shuffle" id="shuffle" aria-label="Try a random name" title="Random name">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h2.5c1.2 0 2 .6 2.6 1.6L9.9 10.4c.6 1 1.4 1.6 2.6 1.6H14M2 12h2.5c1.2 0 2-.6 2.6-1.6M9.9 5.6c.6-1 1.4-1.6 2.6-1.6H14"/><path d="M12.5 2.5 14 4l-1.5 1.5M12.5 10.5 14 12l-1.5 1.5"/></svg>
+            </button>
+          </div>
+          <div class="chips" id="chips" aria-label="Try one of these"></div>
+        </div>
+
+        <div class="field-row">
+          <fieldset class="field">
+            <legend>Style</legend>
+            <div class="seg" role="radiogroup" aria-label="Style">
+              <span class="seg-thumb" aria-hidden="true"></span>
+              <label><input type="radio" name="style" value="nodal" checked><span>nodal</span></label>
+              <label><input type="radio" name="style" value="pen"><span>pen</span></label>
+              <label><input type="radio" name="style" value="halo"><span>halo</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Motion</legend>
+            <div class="seg" role="radiogroup" aria-label="Motion">
+              <span class="seg-thumb" aria-hidden="true"></span>
+              <label><input type="radio" name="motion" value="static" checked><span>static</span></label>
+              <label><input type="radio" name="motion" value="animated"><span>breathe</span></label>
+            </div>
+          </fieldset>
+        </div>
+        <p id="motion-note" class="note" hidden>Animation is off because your OS asks for reduced motion.</p>
       </div>
     </section>
 
     <section class="block">
-      <header class="block-head">
-        <h2>Twelve strangers</h2>
-        <p>Handles, emails, ids — each hashed into its own wave field. 60 px.</p>
+      <header class="block-head reveal">
+        <p class="kicker">Three styles</p>
+        <h2>One field, three pens.</h2>
+        <p>The same zero set, drawn three ways. Pick one.</p>
+      </header>
+      <div id="trio" class="trio"></div>
+    </section>
+
+    <section class="block">
+      <header class="block-head reveal">
+        <p class="kicker">Twelve strangers</p>
+        <h2>Every string gets its own field.</h2>
+        <p>Handles, emails, ids — hashed into 3–5 sources each, at 60 px. Hover one to let it breathe.</p>
       </header>
       <ul id="grid" class="grid" aria-label="Sample avatars"></ul>
     </section>
 
     <section class="block">
-      <header class="block-head">
-        <h2>In a thread</h2>
-        <p>Tiny sizes are where identicons earn their keep. 24 px.</p>
+      <header class="block-head reveal">
+        <p class="kicker">In a thread</p>
+        <h2>Still legible at 24 px.</h2>
+        <p>Tiny sizes are where identicons earn their keep.</p>
       </header>
-      <ol id="thread" class="thread" aria-label="Mock comment thread"></ol>
+      <ol id="thread" class="thread reveal" aria-label="Mock comment thread"></ol>
     </section>
 
     <section class="block">
-      <header class="block-head">
-        <h2>Usage</h2>
-        <p>One import. No build step required.</p>
+      <header class="block-head reveal">
+        <p class="kicker">Usage</p>
+        <h2>One import. No build step.</h2>
+        <p>ESM with bundled types, from a bundler or straight off a CDN.</p>
       </header>
-      <pre class="code"><code>npm install wavemark
+      <div class="code-card reveal">
+        <div class="code-tabs" role="tablist" aria-label="Install method">
+          <button type="button" role="tab" aria-selected="true" data-tab="bundler">bundler</button>
+          <button type="button" role="tab" aria-selected="false" data-tab="cdn">CDN</button>
+          <button type="button" class="copy" id="copy-code" aria-label="Copy code">
+            <svg class="ic-copy" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="5.5" width="8" height="8" rx="2"/><path d="M10.5 5.5v-1a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h1"/></svg>
+            <svg class="ic-check" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-7"/></svg>
+          </button>
+        </div>
+<pre class="code" data-panel="bundler" tabindex="0"><code><span class="tk-cm">// npm i wavemark</span>
+<span class="tk-kw">import</span> { wavemark } <span class="tk-kw">from</span> <span class="tk-str">'wavemark'</span>;
 
-import { wavemark } from 'wavemark';
-
-wavemark('ankit', canvas, { style: 'nodal' });          // draw into a canvas
-wavemark('ankit', canvas, { breathe: true });           // slow in-place motion
-img.src = wavemark.toDataURL('ankit', 64);              // PNG data URL
-
-// straight from a CDN, no bundler:
-import { wavemark } from 'https://cdn.jsdelivr.net/npm/wavemark/+esm';</code></pre>
+<span class="tk-fn">wavemark</span>(<span class="tk-str">'ankit'</span>, canvas);                       <span class="tk-cm">// draw into a canvas</span>
+<span class="tk-fn">wavemark</span>(<span class="tk-str">'ankit'</span>, canvas, { <span class="tk-prop">style</span>: <span class="tk-str">'pen'</span> });    <span class="tk-cm">// or pick a style</span>
+<span class="tk-fn">wavemark</span>(<span class="tk-str">'ankit'</span>, canvas, { <span class="tk-prop">breathe</span>: <span class="tk-kw">true</span> });   <span class="tk-cm">// slow in-place motion</span>
+img.src = wavemark.<span class="tk-fn">toDataURL</span>(<span class="tk-str">'ankit'</span>, <span class="tk-num">64</span>);       <span class="tk-cm">// PNG data URL</span></code></pre>
+<pre class="code" data-panel="cdn" tabindex="0" hidden><code>&lt;<span class="tk-tag">script</span> <span class="tk-prop">type</span>=<span class="tk-str">"module"</span>&gt;
+  <span class="tk-kw">import</span> { wavemark } <span class="tk-kw">from</span> <span class="tk-str">'https://cdn.jsdelivr.net/npm/wavemark/+esm'</span>;
+  <span class="tk-fn">wavemark</span>(<span class="tk-str">'ankit'</span>, document.<span class="tk-fn">querySelector</span>(<span class="tk-str">'canvas'</span>));
+&lt;/<span class="tk-tag">script</span>&gt;</code></pre>
+      </div>
     </section>
   </main>
 
   <footer class="foot">
-    <span>wavemark · MIT</span>
-    <nav aria-label="Footer links">
-      <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
-      <a href="https://github.com/whoisanku/wavemark/blob/main/SPEC.md" rel="noopener">SPEC.md</a>
-    </nav>
+    <div class="foot-inner">
+      <span>wavemark · MIT</span>
+      <nav aria-label="Footer links">
+        <a href="https://github.com/whoisanku/wavemark/blob/main/SPEC.md" rel="noopener">Spec</a>
+        <a href="https://github.com/whoisanku/wavemark" rel="noopener">GitHub</a>
+        <a href="https://www.npmjs.com/package/wavemark" rel="noopener">npm</a>
+      </nav>
+    </div>
   </footer>
 </body>
 </html>
