@@ -22,6 +22,7 @@ Node 24 (tests and scripts use Node's native TypeScript type stripping; the pixe
 | `npm test` | `node --test "test/*.test.ts"` — determinism against the committed fixtures, avalanche sanity, API contract, zero-deps / package hygiene. |
 | `npm run build` | `dist/wavemark.js` (minified ESM + map) via esbuild, `dist/types/` via `tsc -p tsconfig.build.json`, `demo/app.js` via esbuild; prints min+gzip size (warns above 3.5 KB). |
 | `npm run dev` | esbuild watch + static server; open http://localhost:5173/demo/. |
+| `npm run hero` | Renders `docs/hero.png` (the README hero) through `renderPixels` plus a tiny PNG encoder on Node's zlib. Rerun after editing `scripts/hero.ts`; commit the PNG. |
 | `npm run check` | `typecheck` + `test` + `build`. Run before declaring work done. CI runs the same plus `npm pack --dry-run`. |
 | `npm run test:fixtures` | Regenerates `test/fixtures/*.json`. **Never run casually** — a fixture mismatch means the math changed; fix the code, not the fixture. |
 | `npm pack --dry-run` | Lists the tarball: only `dist/`, `README.md`, `LICENSE`, `package.json` (`prepack` builds first). |
@@ -32,8 +33,9 @@ Node 24 (tests and scripts use Node's native TypeScript type stripping; the pixe
 - `src/render.ts` — glue: `STYLES`, `normalizeName`, `normalizeStyle`, `createRenderer`, and the headless `renderPixels(name, S, options, t)` that returns exactly the RGBA bytes `wavemark()` hands to `putImageData`. Used by tests and fixtures.
 - `src/types.ts` — the public types from SPEC.md. `src/index.ts` — the public API (`wavemark`, `wavemark.toDataURL`), the rAF breathe loop, `prefers-reduced-motion`, and the per-canvas handle registry.
 - `demo/` — `index.html`, `style.css`, `app.ts`. `app.ts` imports `'wavemark'` (resolved to `src/index.ts` via tsconfig `paths`) and is bundled to `demo/app.js` (gitignored). Deployed to GitHub Pages by `.github/workflows/pages.yml`.
+- `docs/` — `hero.png`, the README hero image. Generated, not hand-edited: `npm run hero`.
 - `test/` — `*.test.ts` suites; `helpers/fake-dom.ts` (canvas / rAF / matchMedia fake for API tests), `helpers/snapshot.ts` (defines exactly what the fixtures pin); `fixtures/` (committed).
-- `scripts/` — `build.ts`, `dev.ts`, `fixtures.ts`.
+- `scripts/` — `build.ts`, `dev.ts`, `fixtures.ts`, `hero.ts` (renders `docs/hero.png`).
 - `dist/` — build output, gitignored, what gets published: `wavemark.js` (+ map) and `types/{index,types}.d.ts`.
 - `.github/workflows/` — `ci.yml` (typecheck, test, build, pack dry-run on Node 24), `pages.yml` (builds and deploys `demo/` to GitHub Pages).
 - `tsconfig.json` (typecheck everything, no emit), `tsconfig.build.json` (declaration emit for `src/` only).

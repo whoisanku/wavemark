@@ -36,6 +36,7 @@
   "scripts": {
     "build": "node scripts/build.ts",
     "dev": "node scripts/dev.ts",
+    "hero": "node scripts/hero.ts",
     "test": "node --test \"test/*.test.ts\"",
     "test:fixtures": "node scripts/fixtures.ts",
     "typecheck": "tsc -p tsconfig.json",
